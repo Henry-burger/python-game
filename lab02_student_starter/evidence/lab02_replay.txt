@@ -1,0 +1,28 @@
+LAB 02 FIXED REPLAY EVIDENCE
+
+Command or script:
+python -c "from star_sprout_lab import InputState, initial_state, step; seed=42; inputs=[InputState(right=True),InputState(right=True,up=True),InputState(left=True),InputState(precision=True,right=True)]; dts=[0.05,0.05,0.03,0.05]; a=initial_state(seed=seed); b=initial_state(seed=seed); [globals().update(a=step(a,i,d)) for i,d in zip(inputs,dts)]; [globals().update(b=step(b,i,d)) for i,d in zip(inputs,dts)]; print('FIRST=',a.snapshot()); print('SECOND=',b.snapshot()); print('EQUAL=',a.snapshot()==b.snapshot())"
+
+Seed:
+42
+
+Input sequence:
+1. right
+2. right + up
+3. left
+4. precision + right
+
+dt sequence:
+0.05, 0.05, 0.03, 0.05
+
+First snapshot:
+把 Terminal 的 FIRST {'seed': 42, 'phase': 'playing', 'tick': 4, 'elapsed': 0.18, 'remaining': 59.82, 'score': 0, 'lives': 3, 'player': [504.107, 493.393], 'bullets': 0, 'enemies': 0}
+
+Second snapshot:
+把 Terminal 的 SECOND {'seed': 42, 'phase': 'playing', 'tick': 4, 'elapsed': 0.18, 'remaining': 59.82, 'score': 0, 'lives': 3, 'player': [504.107, 493.393], 'bullets': 0, 'enemies': 0}
+
+Equal:
+True
+
+Why equal replay does not mean every seed must have the same result:
+Equal replay means that when the same starting seed, initial state, input sequence, dt sequence, and rules are used, the simulation produces the same observable result. Different seeds may initialize or generate random behavior differently, so different seeds are not required to produce identical snapshots.
